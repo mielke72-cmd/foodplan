@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fuel Plan</title>
+<meta name="theme-color" content="#1f5f4a">
+<meta name="description" content="Low-FODMAP shopping list, prep and evening meals for half-marathon training.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Fuel Plan">
+<style>
+:root{
+  --bg:#f6f5f0; --card:#ffffff; --ink:#1d2321; --muted:#66706b; --line:#e2e0d6;
+  --accent:#1f5f4a; --accent-ink:#ffffff; --soft:#e3efe9; --warn:#a4581a; --warn-soft:#f8ead9;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121614; --card:#1b211e; --ink:#e9eeeb; --muted:#97a39d; --line:#2b332f;
+    --accent:#6fcaa5; --accent-ink:#0d1a14; --soft:#1f2e27; --warn:#e5a463; --warn-soft:#33281b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121614; --card:#1b211e; --ink:#e9eeeb; --muted:#97a39d; --line:#2b332f;
+  --accent:#6fcaa5; --accent-ink:#0d1a14; --soft:#1f2e27; --warn:#e5a463; --warn-soft:#33281b;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+header{padding:calc(18px + env(safe-area-inset-top)) 16px 8px;max-width:720px;margin:0 auto}
+header h1{margin:0;font-size:24px;letter-spacing:-.01em}
+header p{margin:2px 0 0;color:var(--muted);font-size:14px}
+main{max-width:720px;margin:0 auto;padding:8px 16px 24px}
+section[hidden]{display:none}
+h2{font-size:18px;margin:20px 0 8px}
+h3{font-size:15px;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0}
+.card.today{border-color:var(--accent);box-shadow:0 0 0 2px var(--soft)}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.tag{font-size:12px;font-weight:600;background:var(--soft);color:var(--accent);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+.meal{display:grid;grid-template-columns:64px 1fr;gap:8px;margin-top:8px;font-size:15px}
+.meal b{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+ul.check{list-style:none;margin:0;padding:0}
+ul.check li{border-bottom:1px solid var(--line)}
+ul.check li:last-child{border-bottom:0}
+ul.check label{display:flex;gap:12px;align-items:flex-start;padding:11px 0;cursor:pointer}
+ul.check input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:1px 0 0;border:2px solid var(--muted);border-radius:7px;background:transparent;display:grid;place-content:center;cursor:pointer}
+ul.check input:checked{background:var(--accent);border-color:var(--accent)}
+ul.check input:checked::after{content:"";width:6px;height:11px;border:solid var(--accent-ink);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+ul.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 2px}
+.progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+button.btn{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer}
+button.btn:active{transform:scale(.98)}
+details.recipe{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:10px 0;padding:0 16px}
+details.recipe summary{list-style:none;cursor:pointer;padding:14px 0;display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:600}
+details.recipe summary::-webkit-details-marker{display:none}
+details.recipe summary::after{content:"+";font-size:22px;color:var(--muted);font-weight:400}
+details.recipe[open] summary::after{content:"\2212"}
+details.recipe .body{padding:0 0 14px}
+details.recipe ul,details.recipe ol{margin:6px 0;padding-left:20px}
+details.recipe li{margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);z-index:5}
+nav .in{display:flex;width:100%;max-width:720px}
+nav button{flex:1;font:inherit;font-size:12px;font-weight:600;color:var(--muted);background:none;border:0;padding:10px 2px 9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav button[aria-current="true"]{color:var(--accent)}
+.note{background:var(--warn-soft);color:var(--ink);border-radius:12px;padding:10px 14px;font-size:14px;margin:10px 0}
+footer{max-width:720px;margin:0 auto;padding:0 16px 16px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Fuel Plan</h1>
+  <p id="sub">Burj2Burj training: shopping, prep and evening meals</p>
+</header>
+<main>
+  <section id="plan"></section>
+  <section id="shop" hidden></section>
+  <section id="prep" hidden></section>
+  <section id="recipes" hidden></section>
+  <section id="rules" hidden></section>
+</main>
+<footer>Low-FODMAP. Protein figures are approximate. Ticks and notes are stored on this device only.</footer>
+<nav><div class="in" id="nav"></div></nav>
+
+<script>
+/* ===== DATA ===== */
+const PLAN_START = "2026-11-15";
+const DAYS = [
+  {date:"2026-11-15", label:"Sun 15 Nov", train:"Rest",
+   lunch:"Nothing to box yet", dinner:"Lemon-oregano chicken, potatoes, green beans, cucumber-tomato salad", r:0, note:"Sunday prep day. Cook the second chicken portion plain and box it."},
+  {date:"2026-11-16", label:"Mon 16 Nov", train:"6 km easy",
+   lunch:"Chicken and rice bowl, spinach, house dressing", dinner:"Seared salmon, rice, zucchini and spinach, lemon-dill yogurt", r:1, note:"Box the second salmon fillet cold, with rice and cucumber, for Tuesday."},
+  {date:"2026-11-17", label:"Tue 17 Nov", train:"6 x 2 min intervals",
+   lunch:"Salmon rice bowl, cucumber, dill sauce", dinner:"Beef kofta, rice (2 handfuls), parsley-tomato salad", r:2, note:"Biggest carb portion of the week: it follows your hardest session."},
+  {date:"2026-11-18", label:"Wed 18 Nov", train:"Strength",
+   lunch:"Kofta quinoa bowl, romaine, pepper", dinner:"Prawn and egg ginger stir-fry, rice, bok choy", r:3, note:"Thaw the prawns Tuesday night. Restock shop after work."},
+  {date:"2026-11-19", label:"Thu 19 Nov", train:"7 km easy",
+   lunch:"Prawn stir-fry rice box", dinner:"Cook recipe 6 (turkey or chicken mince bowl)", r:5, note:"Long run Saturday: two handfuls of carbs at Friday dinner."}
+];
+
+const SHOP = [
+ ["Protein",[
+  "Chicken breast or boneless thigh, 450 g",
+  "Salmon fillets, 2 x 200 g (cook Monday)",
+  "Lean beef mince (5% fat), 450 g",
+  "Frozen raw peeled prawns, 400 g",
+  "Eggs, 12",
+  "Lactose-free Greek-style yogurt, 500 g",
+  "Canned tuna in olive oil or water, 3 tins (backup)"]],
+ ["Carbs",[
+  "Basmati rice, 1 kg",
+  "Baby potatoes, 600 g",
+  "Quinoa, 250 g",
+  "Gluten-free or spelt sourdough bread, 1 loaf",
+  "Plain rice cakes, 1 pack (backup)"]],
+ ["Vegetables and salad",[
+  "Cucumbers, 4",
+  "Tomatoes, 6, plus 1 punnet cherry tomatoes",
+  "Baby spinach, 200 g",
+  "Romaine hearts, 2",
+  "Green beans, 300 g",
+  "Zucchini, 3",
+  "Carrots, 4",
+  "Red bell peppers, 3",
+  "Bok choy, 2",
+  "Spring onions, 1 bunch (green tops only)"]],
+ ["Herbs and aromatics",[
+  "Flat-leaf parsley, 2 bunches",
+  "Dill, coriander and mint, 1 bunch each",
+  "Fresh ginger, 1 thumb",
+  "Lemons, 5"]],
+ ["Fruit",[
+  "Firm bananas, 6 (slightly green)",
+  "Strawberries, 1 punnet",
+  "Blueberries, 1 punnet",
+  "Kiwi, 4"]],
+ ["Pantry (check what you have)",[
+  "Garlic-infused olive oil",
+  "Extra virgin olive oil",
+  "Dijon mustard",
+  "Tamari or soy sauce",
+  "Rice vinegar and sesame oil",
+  "Cumin, smoked paprika, dried oregano, sumac, turmeric",
+  "Lactose-free milk, 1 litre (for the shake)",
+  "Almonds, small bag (10 per serving)",
+  "Hard cheese, small block"]]
+];
+
+const PREP = [
+ "Heat the oven for tonight's chicken (recipe 1) so it works while you prep",
+ "Cook 3 cups dry basmati; spread on a tray to cool; box 4 portions; refrigerate within 1 hour",
+ "Cook 1 cup dry quinoa; box for Wednesday",
+ "Boil 8 eggs for 9 minutes; cool in cold water; keep unpeeled",
+ "Mix kofta: 450 g beef mince, 1 bunch chopped parsley, 1 tsp cumin, 1 tsp paprika, 1 tsp salt, 1 tbsp garlic-infused oil; shape 8 patties; refrigerate",
+ "Lemon-dill yogurt: 150 g yogurt, juice of 1 lemon, 2 tbsp chopped dill, salt",
+ "House dressing: 4 tbsp olive oil, 2 tbsp lemon juice, 1 tsp Dijon, salt",
+ "Wash and dry spinach and romaine; store in boxes lined with paper towel",
+ "Chop cucumber, peppers, carrots into separate boxes (add tomatoes on the day)",
+ "Label 4 lunch boxes: Mon, Tue, Wed, Thu",
+ "Tuesday night: move prawns from freezer to fridge"
+];
+
+const RECIPES = [
+ {t:"1. Lemon-oregano chicken tray bake", m:"Sunday", p:"~45 g protein, 10 min work, 40 min oven",
+  ing:["450 g chicken breast or thigh","350 g baby potatoes, halved","About 15 green beans per portion","Marinade: 2 tbsp garlic-infused oil, juice of 1 lemon, 1 tsp oregano, 1 tsp paprika, salt"],
+  steps:["Heat the oven to 220 C. Roast potatoes with 1 tbsp oil and salt for 20 minutes.","Add the marinated chicken; roast 20 minutes more, adding the beans for the last 10.","Serve with cucumber-tomato salad and house dressing.","Box the second chicken portion plain for Monday's rice bowl."]},
+ {t:"2. Seared salmon, rice, lemon-dill yogurt", m:"Monday", p:"~42 g protein, 15 min",
+  ing:["2 salmon fillets, 200 g each","1 small zucchini","2 big handfuls spinach","1 portion cooked rice","Lemon-dill yogurt"],
+  steps:["Pat salmon dry and season. Cook skin-side down in a hot pan for 4 minutes, flip for 3.","In the same pan, cook sliced zucchini 4 minutes in 1 tbsp garlic oil; wilt the spinach 1 minute.","Plate with rice and a spoon of sauce.","Box the second fillet cold with rice, cucumber and extra sauce for Tuesday."]},
+ {t:"3. Beef kofta, parsley-tomato salad", m:"Tuesday", p:"~47 g protein, 15 min (patties shaped Sunday)",
+  ing:["4 patties per portion (about 225 g mince)","2 handfuls rice","2 tomatoes, 1 cucumber, big handful parsley","Yogurt sauce"],
+  steps:["Pan-fry patties on medium-high, 4 minutes per side, until no pink remains.","Chop tomato, cucumber, parsley; dress with lemon, olive oil and salt.","Serve over rice with yogurt sauce.","Box the second portion with cold quinoa, romaine and sliced pepper for Wednesday."]},
+ {t:"4. Prawn and egg ginger stir-fry", m:"Wednesday", p:"~45 g protein, 15 min",
+  ing:["400 g prawns, thawed","4 eggs","2 carrots in matchsticks, 1 red pepper, 2 bok choy","Thumb of ginger, green spring onion tops","2 tbsp garlic-infused oil, 2 tbsp tamari, 1 tsp sesame oil","1 portion cooked rice per serving"],
+  steps:["Stir-fry carrot, pepper and ginger 3 minutes. Add prawns, cook 3 minutes until pink.","Push to one side; scramble the eggs. Add rice, tamari and bok choy; toss 1 minute.","Finish with sesame oil and spring onion tops.","Box half for Thursday."]},
+ {t:"5. Tuna, egg and potato salad plate", m:"Backup, 10 min", p:"~45 g protein",
+  ing:["1 tin tuna, 2 boiled eggs","200 g boiled potatoes, 15 green beans","Cherry tomatoes, 6 olives, romaine"],
+  steps:["Arrange on a plate.","Dress with lemon, olive oil and Dijon."]},
+ {t:"6. Turkey or chicken mince bowl", m:"Next week", p:"~45 g protein, 15 min",
+  ing:["450 g mince","1 tsp each cumin and paprika, 2 tbsp garlic-infused oil","2 handfuls rice, romaine, tomato, cucumber, yogurt sauce"],
+  steps:["Brown the mince with the spices for 8 minutes.","Build the bowl over rice and salad."]}
+];
+
+const MEALS = [
+ ["Breakfast","Within 60 min of the run (07:30 on rest days)","Shake, lactose-free Greek yogurt, toast or fruit","~35 g"],
+ ["Work lunch","12:30-13:00","Last night's extra portion, boxed","~45 g"],
+ ["Dinner","19:00, done by 20:00","15-minute cook from the plan","~45 g"]
+];
+const RULES = [
+ "Plate: 2 palms protein, 1 cupped handful of rice or potato (2 on interval days and before the long run), 2 big handfuls of salad or veg, 1 tbsp oil or dressing.",
+ "Eat by the clock, not by appetite. A skipped lunch becomes a 4 pm raid and a heavy late dinner.",
+ "Box tomorrow's lunch before you sit down to eat, so the extra portion can't become a second helping.",
+ "Weigh once a week, Sunday morning, same conditions. Up 0.5 kg over two weeks: drop one handful of carbs at dinner. Down: add one at lunch. Never skip a meal to fix it.",
+ "Dinner is the last food of the day. Heavy late meals cost you sleep."
+];
+const BREAKFAST = ["Within 60 minutes of finishing: 1 scoop whey with lactose-free milk, 150 g lactose-free Greek yogurt, 2 slices gluten-free or spelt sourdough toast, 1 firm banana, a handful of blueberries (about 35 g protein, 70-80 g carbs).",
+ "Before an early run: a firm banana and water with electrolytes, nothing heavier."];
+const HUNGRY = ["2 boiled eggs with salt","Yogurt with strawberries or kiwi","Tuna on 2 rice cakes","Small piece of hard cheese with 10 almonds","Hungry at the same time every day? Move part of the nearest meal to that time."];
+
+/* ===== STATE ===== */
+const store = {
+  get(k,d){try{const v=localStorage.getItem("fuel:"+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem("fuel:"+k,JSON.stringify(v))}catch(e){}}
+};
+let shopState = store.get("shop",{}), prepState = store.get("prep",{});
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ===== RENDER ===== */
+function todayIndex(){
+  const iso = new Date().toLocaleDateString("en-CA");
+  const i = DAYS.findIndex(d=>d.date===iso);
+  return i;
+}
+function renderPlan(){
+  const ti = todayIndex();
+  const cards = DAYS.map((d,i)=>`
+    <div class="card ${i===ti?"today":""}">
+      <div class="row"><h3>${d.label}</h3><span class="tag ${d.train==="Rest"?"":"warn"}">${esc(d.train)}</span></div>
+      <div class="meal"><b>Lunch</b><span>${esc(d.lunch)}</span></div>
+      <div class="meal"><b>Dinner</b><span>${esc(d.dinner)}</span></div>
+      <p class="small muted" style="margin:8px 0 0">${esc(d.note)}</p>
+      <p style="margin:8px 0 0"><button class="btn small" data-recipe="${d.r}">Open recipe</button></p>
+    </div>`).join("");
+  $("#plan").innerHTML = (ti>=0?`<div class="note">Today is <b>${DAYS[ti].label}</b>. Dinner: ${esc(DAYS[ti].dinner)}.</div>`:"") + cards;
+}
+function renderShop(){
+  let total=0, done=0;
+  const groups = SHOP.map(([name,items],gi)=>`
+    <h2>${esc(name)}</h2>
+    <div class="card"><ul class="check">${items.map((it,ii)=>{
+      const id=`s${gi}_${ii}`; total++; const c=!!shopState[id]; if(c) done++;
+      return `<li><label><input type="checkbox" data-s="${id}" ${c?"checked":""}><span>${esc(it)}</span></label></li>`;
+    }).join("")}</ul></div>`).join("");
+  $("#shop").innerHTML = `
+    <div class="row" style="margin-top:12px"><span class="small muted" id="shopCount">${done} of ${total} in the basket</span>
+      <button class="btn small" id="shopReset">Reset</button></div>
+    <div class="progress"><i id="shopBar" style="width:${total?done/total*100:0}%"></i></div>
+    <p class="small muted">Skip: onions, garlic, mushrooms, cauliflower, avocado, canned beans, wheat bread, hummus, toum, and any spice mix with onion or garlic powder.</p>
+    ${groups}`;
+}
+function renderPrep(){
+  let done=0;
+  const items = PREP.map((t,i)=>{const c=!!prepState["p"+i]; if(c)done++;
+    return `<li><label><input type="checkbox" data-p="p${i}" ${c?"checked":""}><span>${esc(t)}</span></label></li>`}).join("");
+  $("#prep").innerHTML = `
+    <div class="row" style="margin-top:12px"><span class="small muted" id="prepCount">${done} of ${PREP.length} done</span>
+      <button class="btn small" id="prepReset">Reset</button></div>
+    <div class="progress"><i id="prepBar" style="width:${done/PREP.length*100}%"></i></div>
+    <h2>Sunday prep, 45 minutes</h2>
+    <div class="card"><ul class="check">${items}</ul></div>
+    <p class="small muted">Reheat rice until steaming hot. Refrigerate cooked rice within an hour.</p>`;
+}
+function renderRecipes(){
+  $("#recipes").innerHTML = `<p class="small muted" style="margin-top:12px">Each makes 2 portions: one tonight, one boxed for tomorrow's lunch. Bean, zucchini and bok choy amounts are kept to the low-FODMAP serving, so do not double them.</p>` +
+  RECIPES.map((r,i)=>`
+    <details class="recipe" id="rec${i}">
+      <summary><span>${esc(r.t)}<br><span class="small muted" style="font-weight:400">${esc(r.m)}: ${esc(r.p)}</span></span></summary>
+      <div class="body"><h3>Ingredients</h3><ul>${r.ing.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+      <h3>Method</h3><ol>${r.steps.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>
+    </details>`).join("");
+}
+function renderRules(){
+  $("#rules").innerHTML = `
+    <h2>Three meals, fixed times</h2>
+    <div class="card"><table><thead><tr><th>Meal</th><th>When</th><th>What</th><th>Protein</th></tr></thead><tbody>
+      ${MEALS.map(m=>`<tr>${m.map(c=>`<td>${esc(c)}</td>`).join("")}</tr>`).join("")}
+      <tr><td><b>Total</b></td><td></td><td></td><td><b>~125 g</b></td></tr></tbody></table></div>
+    <h2>Rules that keep weight flat</h2>
+    <div class="card"><ul>${RULES.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>
+    <h2>Post-run breakfast</h2>
+    <div class="card"><ul>${BREAKFAST.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>
+    <h2>Hungry between meals</h2>
+    <div class="card"><p class="small muted" style="margin-top:0">Pick one, sit down, then stop.</p><ul>${HUNGRY.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>
+    <h2>Around the long run</h2>
+    <div class="card"><ul><li>Friday dinner: two handfuls of rice or potato.</li><li>Saturday: banana before, then the full post-run breakfast.</li></ul></div>`;
+}
+
+/* ===== NAV ===== */
+const TABS = [
+ ["plan","Plan",'<path d="M7 3v3M17 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/>'],
+ ["shop","Shop",'<path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7h-7a2 2 0 0 1-2-1.7L5 7zM9 7a3 3 0 0 1 6 0"/>'],
+ ["prep","Prep",'<path d="M9 11l2 2 4-4M4 5h16v14H4z"/>'],
+ ["recipes","Recipes",'<path d="M6 3h9l3 3v15H6zM9 11h6M9 15h6"/>'],
+ ["rules","Rules",'<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/>']
+];
+function show(id){
+  TABS.forEach(([t])=>{$("#"+t).hidden = t!==id});
+  document.querySelectorAll("#nav button").forEach(b=>b.setAttribute("aria-current", b.dataset.t===id));
+  store.set("tab",id); window.scrollTo({top:0});
+}
+$("#nav").innerHTML = TABS.map(([t,l,svg])=>`<button data-t="${t}"><svg viewBox="0 0 24 24">${svg}</svg>${l}</button>`).join("");
+$("#nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.t)});
+
+/* ===== EVENTS ===== */
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset.s){shopState[t.dataset.s]=t.checked; store.set("shop",shopState);
+    const n=Object.values(shopState).filter(Boolean).length, tot=SHOP.reduce((a,g)=>a+g[1].length,0);
+    $("#shopCount").textContent=`${n} of ${tot} in the basket`; $("#shopBar").style.width=(n/tot*100)+"%";}
+  if(t.dataset.p){prepState[t.dataset.p]=t.checked; store.set("prep",prepState);
+    const n=Object.values(prepState).filter(Boolean).length;
+    $("#prepCount").textContent=`${n} of ${PREP.length} done`; $("#prepBar").style.width=(n/PREP.length*100)+"%";}
+});
+document.addEventListener("click",e=>{
+  if(e.target.id==="shopReset"){shopState={};store.set("shop",shopState);renderShop()}
+  if(e.target.id==="prepReset"){prepState={};store.set("prep",prepState);renderPrep()}
+  const r=e.target.closest("[data-recipe]");
+  if(r){show("recipes");const d=$("#rec"+r.dataset.recipe);d.open=true;d.scrollIntoView({block:"start"})}
+});
+
+renderPlan();renderShop();renderPrep();renderRecipes();renderRules();
+show(store.get("tab","plan"));
+
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
+</script>
+</body>
+</html>
