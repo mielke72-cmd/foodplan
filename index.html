@@ -98,15 +98,15 @@ footer{max-width:720px;margin:0 auto;padding:0 16px 16px;color:var(--muted);font
 const PLAN_START = "2026-11-15";
 const DAYS = [
   {date:"2026-11-15", label:"Sun 15 Nov", train:"Rest",
-   lunch:"Nothing to box yet", dinner:"Lemon-oregano chicken, potatoes, green beans, cucumber-tomato salad", r:0, note:"Sunday prep day. Cook the second chicken portion plain and box it."},
+   bf:"Make 4 chia pudding jars tonight (Mon to Thu)", lunch:"Nothing to box yet", dinner:"Lemon-oregano chicken, potatoes, green beans, cucumber-tomato salad", r:4, note:"Sunday prep day. Cook the second chicken portion plain and box it."},
   {date:"2026-11-16", label:"Mon 16 Nov", train:"6 km easy",
-   lunch:"Chicken and rice bowl, spinach, house dressing", dinner:"Seared salmon, rice, zucchini and spinach, lemon-dill yogurt", r:1, note:"Box the second salmon fillet cold, with rice and cucumber, for Tuesday."},
+   bf:"Chia protein pudding, berries, banana (run day)", lunch:"Chicken and rice bowl, spinach, house dressing", dinner:"Seared salmon, rice, zucchini and spinach, lemon-dill yogurt", r:1, note:"Box the second salmon fillet cold, with rice and cucumber, for Tuesday."},
   {date:"2026-11-17", label:"Tue 17 Nov", train:"6 x 2 min intervals",
-   lunch:"Salmon rice bowl, cucumber, dill sauce", dinner:"Beef kofta, rice (2 handfuls), parsley-tomato salad", r:2, note:"Biggest carb portion of the week: it follows your hardest session."},
+   bf:"Chia protein pudding, berries, banana (run day)", lunch:"Salmon rice bowl, cucumber, dill sauce", dinner:"Beef kofta, rice (2 handfuls), parsley-tomato salad", r:2, note:"Biggest carb portion of the week: it follows your hardest session."},
   {date:"2026-11-18", label:"Wed 18 Nov", train:"Strength",
-   lunch:"Kofta quinoa bowl, romaine, pepper", dinner:"Prawn and egg ginger stir-fry, rice, bok choy", r:3, note:"Thaw the prawns Tuesday night. Restock shop after work."},
+   bf:"Chia protein pudding, berries", lunch:"Kofta quinoa bowl, romaine, pepper", dinner:"Prawn and egg ginger stir-fry, rice, bok choy", r:3, note:"Thaw the prawns Tuesday night. Restock shop after work."},
   {date:"2026-11-19", label:"Thu 19 Nov", train:"7 km easy",
-   lunch:"Prawn stir-fry rice box", dinner:"Cook recipe 6 (turkey or chicken mince bowl)", r:5, note:"Long run Saturday: two handfuls of carbs at Friday dinner."}
+   bf:"Chia protein pudding, berries, banana (run day)", lunch:"Prawn stir-fry rice box", dinner:"Cook recipe 6 (turkey or chicken mince bowl)", r:6, note:"Long run Saturday: two handfuls of carbs at Friday dinner."}
 ];
 
 const SHOP = [
@@ -117,12 +117,13 @@ const SHOP = [
   "Frozen raw peeled prawns, 400 g",
   "Eggs, 12",
   "Lactose-free Greek-style yogurt, 500 g",
+  "Protein powder, 1 tub (whey isolate or plain plant; no inulin, chicory root, sorbitol or xylitol)",
   "Canned tuna in olive oil or water, 3 tins (backup)"]],
  ["Carbs",[
   "Basmati rice, 1 kg",
   "Baby potatoes, 600 g",
   "Quinoa, 250 g",
-  "Gluten-free or spelt sourdough bread, 1 loaf",
+  "Chia seeds, 250 g bag",
   "Plain rice cakes, 1 pack (backup)"]],
  ["Vegetables and salad",[
   "Cucumbers, 4",
@@ -152,7 +153,7 @@ const SHOP = [
   "Tamari or soy sauce",
   "Rice vinegar and sesame oil",
   "Cumin, smoked paprika, dried oregano, sumac, turmeric",
-  "Lactose-free milk, 1 litre (for the shake)",
+  "Oat milk, 1 litre (check your brand in the Monash app)",
   "Almonds, small bag (10 per serving)",
   "Hard cheese, small block"]]
 ];
@@ -168,10 +169,14 @@ const PREP = [
  "Wash and dry spinach and romaine; store in boxes lined with paper towel",
  "Chop cucumber, peppers, carrots into separate boxes (add tomatoes on the day)",
  "Label 4 lunch boxes: Mon, Tue, Wed, Thu",
+ "Make 4 chia protein puddings in jars for Mon to Thu breakfasts (recipe: Breakfast)",
  "Tuesday night: move prawns from freezer to fridge"
 ];
 
 const RECIPES = [
+ {t:"Daily breakfast: chia protein pudding", m:"Every day", p:"~30 g protein per jar, 5 min the night before",
+  ing:["25 g chia seeds (about 2 tbsp)","30 g protein powder (1 scoop)","220-250 ml oat milk","Berries on top; a firm banana on run days"],
+  steps:["Whisk or shake the powder into the milk first until smooth. Adding powder and chia together makes clumps around the seeds.","Stir in the chia. Wait 5 to 10 minutes and stir again to break up the seed clusters.","Cover and refrigerate at least 4 hours or overnight. Make 4 jars on Sunday; they keep about 4 days.","In the morning add a splash of milk if too thick, then top with berries.","Keep chia at 25 g (low-FODMAP at about 2 tbsp, not more). Use whey isolate or a plain plant protein without inulin, chicory root, sorbitol or xylitol.","Oat milk is only low-FODMAP in limited amounts and the limit varies by brand. If 250 ml bothers you, swap half for almond or lactose-free milk. Chia is high in fibre, so drink water with it."]},
  {t:"1. Lemon-oregano chicken tray bake", m:"Sunday", p:"~45 g protein, 10 min work, 40 min oven",
   ing:["450 g chicken breast or thigh","350 g baby potatoes, halved","About 15 green beans per portion","Marinade: 2 tbsp garlic-infused oil, juice of 1 lemon, 1 tsp oregano, 1 tsp paprika, salt"],
   steps:["Heat the oven to 220 C. Roast potatoes with 1 tbsp oil and salt for 20 minutes.","Add the marinated chicken; roast 20 minutes more, adding the beans for the last 10.","Serve with cucumber-tomato salad and house dressing.","Box the second chicken portion plain for Monday's rice bowl."]},
@@ -193,7 +198,7 @@ const RECIPES = [
 ];
 
 const MEALS = [
- ["Breakfast","Within 60 min of the run (07:30 on rest days)","Shake, lactose-free Greek yogurt, toast or fruit","~35 g"],
+ ["Breakfast","Within 60 min of the run (07:30 on rest days)","Chia protein pudding (made the night before), berries, banana on run days","~30 g"],
  ["Work lunch","12:30-13:00","Last night's extra portion, boxed","~45 g"],
  ["Dinner","19:00, done by 20:00","15-minute cook from the plan","~45 g"]
 ];
@@ -204,7 +209,7 @@ const RULES = [
  "Weigh once a week, Sunday morning, same conditions. Up 0.5 kg over two weeks: drop one handful of carbs at dinner. Down: add one at lunch. Never skip a meal to fix it.",
  "Dinner is the last food of the day. Heavy late meals cost you sleep."
 ];
-const BREAKFAST = ["Within 60 minutes of finishing: 1 scoop whey with lactose-free milk, 150 g lactose-free Greek yogurt, 2 slices gluten-free or spelt sourdough toast, 1 firm banana, a handful of blueberries (about 35 g protein, 70-80 g carbs).",
+const BREAKFAST = ["Within 60 minutes of finishing: your chia protein pudding from the fridge (about 30 g protein), topped with a handful of berries, plus 1 firm banana on the side. Add a splash of oat milk if it has set thick.",
  "Before an early run: a firm banana and water with electrolytes, nothing heavier."];
 const HUNGRY = ["2 boiled eggs with salt","Yogurt with strawberries or kiwi","Tuna on 2 rice cakes","Small piece of hard cheese with 10 almonds","Hungry at the same time every day? Move part of the nearest meal to that time."];
 
@@ -228,6 +233,7 @@ function renderPlan(){
   const cards = DAYS.map((d,i)=>`
     <div class="card ${i===ti?"today":""}">
       <div class="row"><h3>${d.label}</h3><span class="tag ${d.train==="Rest"?"":"warn"}">${esc(d.train)}</span></div>
+      <div class="meal"><b>Breakfast</b><span>${esc(d.bf)}</span></div>
       <div class="meal"><b>Lunch</b><span>${esc(d.lunch)}</span></div>
       <div class="meal"><b>Dinner</b><span>${esc(d.dinner)}</span></div>
       <p class="small muted" style="margin:8px 0 0">${esc(d.note)}</p>
@@ -276,7 +282,7 @@ function renderRules(){
     <h2>Three meals, fixed times</h2>
     <div class="card"><table><thead><tr><th>Meal</th><th>When</th><th>What</th><th>Protein</th></tr></thead><tbody>
       ${MEALS.map(m=>`<tr>${m.map(c=>`<td>${esc(c)}</td>`).join("")}</tr>`).join("")}
-      <tr><td><b>Total</b></td><td></td><td></td><td><b>~125 g</b></td></tr></tbody></table></div>
+      <tr><td><b>Total</b></td><td></td><td></td><td><b>~120 g</b></td></tr></tbody></table></div>
     <h2>Rules that keep weight flat</h2>
     <div class="card"><ul>${RULES.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>
     <h2>Post-run breakfast</h2>
@@ -284,7 +290,7 @@ function renderRules(){
     <h2>Hungry between meals</h2>
     <div class="card"><p class="small muted" style="margin-top:0">Pick one, sit down, then stop.</p><ul>${HUNGRY.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>
     <h2>Around the long run</h2>
-    <div class="card"><ul><li>Friday dinner: two handfuls of rice or potato.</li><li>Saturday: banana before, then the full post-run breakfast.</li></ul></div>`;
+    <div class="card"><ul><li>Friday dinner: two handfuls of rice or potato.</li><li>Saturday: banana before, then the chia pudding after.</li></ul></div>`;
 }
 
 /* ===== NAV ===== */
