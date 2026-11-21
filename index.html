@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fuel Plan</title>
 <meta name="theme-color" content="#1f5f4a">
-<meta name="description" content="Low-FODMAP shopping list, prep and evening meals for half-marathon training.">
+<meta name="description" content="Shopping list, prep and evening meals for half-marathon training.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
@@ -90,7 +90,7 @@ footer{max-width:720px;margin:0 auto;padding:0 16px 16px;color:var(--muted);font
   <section id="recipes" hidden></section>
   <section id="rules" hidden></section>
 </main>
-<footer>Low-FODMAP. Protein figures are approximate. Ticks and notes are stored on this device only.</footer>
+<footer>Protein figures are approximate. Ticks and notes are stored on this device only.</footer>
 <nav><div class="in" id="nav"></div></nav>
 
 <script>
@@ -116,8 +116,8 @@ const SHOP = [
   "Lean beef mince (5% fat), 450 g",
   "Frozen raw peeled prawns, 400 g",
   "Eggs, 12",
-  "Lactose-free Greek-style yogurt, 500 g",
-  "Protein powder, 1 tub (whey isolate or plain plant; no inulin, chicory root, sorbitol or xylitol)",
+  "Greek yogurt, 500 g",
+  "Protein powder, 1 tub",
   "Canned tuna in olive oil or water, 3 tins (backup)"]],
  ["Carbs",[
   "Basmati rice, 1 kg",
@@ -135,7 +135,7 @@ const SHOP = [
   "Carrots, 4",
   "Red bell peppers, 3",
   "Bok choy, 2",
-  "Spring onions, 1 bunch (green tops only)"]],
+  "Spring onions, 1 bunch"]],
  ["Herbs and aromatics",[
   "Flat-leaf parsley, 2 bunches",
   "Dill, coriander and mint, 1 bunch each",
@@ -147,13 +147,13 @@ const SHOP = [
   "Blueberries, 1 punnet",
   "Kiwi, 4"]],
  ["Pantry (check what you have)",[
-  "Garlic-infused olive oil",
+  "Garlic, 1 head",
   "Extra virgin olive oil",
   "Dijon mustard",
   "Tamari or soy sauce",
   "Rice vinegar and sesame oil",
   "Cumin, smoked paprika, dried oregano, sumac, turmeric",
-  "Oat milk, 1 litre (check your brand in the Monash app)",
+  "Oat milk, 1 litre (or any milk you like)",
   "Almonds, small bag (10 per serving)",
   "Hard cheese, small block"]]
 ];
@@ -163,7 +163,7 @@ const PREP = [
  "Cook 3 cups dry basmati; spread on a tray to cool; box 4 portions; refrigerate within 1 hour",
  "Cook 1 cup dry quinoa; box for Wednesday",
  "Boil 8 eggs for 9 minutes; cool in cold water; keep unpeeled",
- "Mix kofta: 450 g beef mince, 1 bunch chopped parsley, 1 tsp cumin, 1 tsp paprika, 1 tsp salt, 1 tbsp garlic-infused oil; shape 8 patties; refrigerate",
+ "Mix kofta: 450 g beef mince, 1 bunch chopped parsley, 1 tsp cumin, 1 tsp paprika, 1 tsp salt, 1 tbsp olive oil, 1 grated garlic clove; shape 8 patties; refrigerate",
  "Lemon-dill yogurt: 150 g yogurt, juice of 1 lemon, 2 tbsp chopped dill, salt",
  "House dressing: 4 tbsp olive oil, 2 tbsp lemon juice, 1 tsp Dijon, salt",
  "Wash and dry spinach and romaine; store in boxes lined with paper towel",
@@ -176,24 +176,24 @@ const PREP = [
 const RECIPES = [
  {t:"Daily breakfast: chia protein pudding", m:"Every day", p:"~30 g protein per jar, 5 min the night before",
   ing:["25 g chia seeds (about 2 tbsp)","30 g protein powder (1 scoop)","220-250 ml oat milk","Berries on top; a firm banana on run days"],
-  steps:["Whisk or shake the powder into the milk first until smooth. Adding powder and chia together makes clumps around the seeds.","Stir in the chia. Wait 5 to 10 minutes and stir again to break up the seed clusters.","Cover and refrigerate at least 4 hours or overnight. Make 4 jars on Sunday; they keep about 4 days.","In the morning add a splash of milk if too thick, then top with berries.","Keep chia at 25 g (low-FODMAP at about 2 tbsp, not more). Use whey isolate or a plain plant protein without inulin, chicory root, sorbitol or xylitol.","Oat milk is only low-FODMAP in limited amounts and the limit varies by brand. If 250 ml bothers you, swap half for almond or lactose-free milk. Chia is high in fibre, so drink water with it."]},
+  steps:["Whisk or shake the powder into the milk first until smooth. Adding powder and chia together makes clumps around the seeds.","Stir in the chia. Wait 5 to 10 minutes and stir again to break up the seed clusters.","Cover and refrigerate at least 4 hours or overnight. Make 4 jars on Sunday; they keep about 4 days.","In the morning add a splash of milk if too thick, then top with berries.","Keep chia at 25 g; more makes the pudding stiff and pasty.","If oat milk does not suit you, swap half or all of it for almond or any milk you like. Chia is high in fibre, so drink water with it."]},
  {t:"1. Lemon-oregano chicken tray bake", m:"Sunday", p:"~45 g protein, 10 min work, 40 min oven",
-  ing:["450 g chicken breast or thigh","350 g baby potatoes, halved","About 15 green beans per portion","Marinade: 2 tbsp garlic-infused oil, juice of 1 lemon, 1 tsp oregano, 1 tsp paprika, salt"],
+  ing:["450 g chicken breast or thigh","350 g baby potatoes, halved","A handful of green beans per portion","Marinade: 2 tbsp olive oil, 2 crushed garlic cloves, juice of 1 lemon, 1 tsp oregano, 1 tsp paprika, salt"],
   steps:["Heat the oven to 220 C. Roast potatoes with 1 tbsp oil and salt for 20 minutes.","Add the marinated chicken; roast 20 minutes more, adding the beans for the last 10.","Serve with cucumber-tomato salad and house dressing.","Box the second chicken portion plain for Monday's rice bowl."]},
  {t:"2. Seared salmon, rice, lemon-dill yogurt", m:"Monday", p:"~42 g protein, 15 min",
   ing:["2 salmon fillets, 200 g each","1 small zucchini","2 big handfuls spinach","1 portion cooked rice","Lemon-dill yogurt"],
-  steps:["Pat salmon dry and season. Cook skin-side down in a hot pan for 4 minutes, flip for 3.","In the same pan, cook sliced zucchini 4 minutes in 1 tbsp garlic oil; wilt the spinach 1 minute.","Plate with rice and a spoon of sauce.","Box the second fillet cold with rice, cucumber and extra sauce for Tuesday."]},
+  steps:["Pat salmon dry and season. Cook skin-side down in a hot pan for 4 minutes, flip for 3.","In the same pan, cook sliced zucchini 4 minutes in 1 tbsp olive oil and 1 sliced garlic clove; wilt the spinach 1 minute.","Plate with rice and a spoon of sauce.","Box the second fillet cold with rice, cucumber and extra sauce for Tuesday."]},
  {t:"3. Beef kofta, parsley-tomato salad", m:"Tuesday", p:"~47 g protein, 15 min (patties shaped Sunday)",
   ing:["4 patties per portion (about 225 g mince)","2 handfuls rice","2 tomatoes, 1 cucumber, big handful parsley","Yogurt sauce"],
   steps:["Pan-fry patties on medium-high, 4 minutes per side, until no pink remains.","Chop tomato, cucumber, parsley; dress with lemon, olive oil and salt.","Serve over rice with yogurt sauce.","Box the second portion with cold quinoa, romaine and sliced pepper for Wednesday."]},
  {t:"4. Prawn and egg ginger stir-fry", m:"Wednesday", p:"~45 g protein, 15 min",
-  ing:["400 g prawns, thawed","4 eggs","2 carrots in matchsticks, 1 red pepper, 2 bok choy","Thumb of ginger, green spring onion tops","2 tbsp garlic-infused oil, 2 tbsp tamari, 1 tsp sesame oil","1 portion cooked rice per serving"],
+  ing:["400 g prawns, thawed","4 eggs","2 carrots in matchsticks, 1 red pepper, 2 bok choy","Thumb of ginger, green spring onion tops","2 tbsp olive oil, 2 garlic cloves, 2 tbsp tamari, 1 tsp sesame oil","1 portion cooked rice per serving"],
   steps:["Stir-fry carrot, pepper and ginger 3 minutes. Add prawns, cook 3 minutes until pink.","Push to one side; scramble the eggs. Add rice, tamari and bok choy; toss 1 minute.","Finish with sesame oil and spring onion tops.","Box half for Thursday."]},
  {t:"5. Tuna, egg and potato salad plate", m:"Backup, 10 min", p:"~45 g protein",
-  ing:["1 tin tuna, 2 boiled eggs","200 g boiled potatoes, 15 green beans","Cherry tomatoes, 6 olives, romaine"],
+  ing:["1 tin tuna, 2 boiled eggs","200 g boiled potatoes, a handful of green beans","Cherry tomatoes, 6 olives, romaine"],
   steps:["Arrange on a plate.","Dress with lemon, olive oil and Dijon."]},
  {t:"6. Turkey or chicken mince bowl", m:"Next week", p:"~45 g protein, 15 min",
-  ing:["450 g mince","1 tsp each cumin and paprika, 2 tbsp garlic-infused oil","2 handfuls rice, romaine, tomato, cucumber, yogurt sauce"],
+  ing:["450 g mince","1 tsp each cumin and paprika, 2 tbsp olive oil, 2 garlic cloves","2 handfuls rice, romaine, tomato, cucumber, yogurt sauce"],
   steps:["Brown the mince with the spices for 8 minutes.","Build the bowl over rice and salad."]}
 ];
 
@@ -253,7 +253,6 @@ function renderShop(){
     <div class="row" style="margin-top:12px"><span class="small muted" id="shopCount">${done} of ${total} in the basket</span>
       <button class="btn small" id="shopReset">Reset</button></div>
     <div class="progress"><i id="shopBar" style="width:${total?done/total*100:0}%"></i></div>
-    <p class="small muted">Skip: onions, garlic, mushrooms, cauliflower, avocado, canned beans, wheat bread, hummus, toum, and any spice mix with onion or garlic powder.</p>
     ${groups}`;
 }
 function renderPrep(){
@@ -269,7 +268,7 @@ function renderPrep(){
     <p class="small muted">Reheat rice until steaming hot. Refrigerate cooked rice within an hour.</p>`;
 }
 function renderRecipes(){
-  $("#recipes").innerHTML = `<p class="small muted" style="margin-top:12px">Each makes 2 portions: one tonight, one boxed for tomorrow's lunch. Bean, zucchini and bok choy amounts are kept to the low-FODMAP serving, so do not double them.</p>` +
+  $("#recipes").innerHTML = `<p class="small muted" style="margin-top:12px">Each makes 2 portions: one tonight, one boxed for tomorrow's lunch.</p>` +
   RECIPES.map((r,i)=>`
     <details class="recipe" id="rec${i}">
       <summary><span>${esc(r.t)}<br><span class="small muted" style="font-weight:400">${esc(r.m)}: ${esc(r.p)}</span></span></summary>

@@ -1,6 +1,6 @@
 # Fuel Plan
 
-Low-FODMAP shopping list, Sunday prep, daily plan and recipes for half-marathon training.
+Shopping list, Sunday prep, daily plan and recipes for half-marathon training.
 A static, installable web app: no build step, no dependencies, works offline, ticks are saved on the device.
 
 ## Publish on GitHub Pages
